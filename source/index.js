@@ -1,20 +1,15 @@
 import React from 'react';
 import dva from 'dva';
 import { Router, Route, Switch } from 'dva/router';
-import styles from './index.css';
-import { Spin, DatePicker, Checkbox, Alert, Icon } from 'antd';
 import 'antd/dist/antd.css';
-
+import { Spin } from 'antd';
+import styles from './index.css';
 
 class Hello extends React.Component {
     render() {
         return (
             <div className={ styles.container }>
-                {/* <Spin /> */}
-                {/* <DatePicker /> */}
-                {/* <Checkbox>Hello World!</Checkbox> */}
-                {/* <Alert message="成功提示的文案" type="success" showIcon="true" /> */}
-                <Icon type="link" />
+                <Spin style={ {color: 'darkslategray'} } tip='Hello World!' size="large" />
             </div>
         );        
     }

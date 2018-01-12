@@ -27,12 +27,18 @@ module.exports = {
             },
             {
                 test: /\.css$/,
+                exclude: /node_modules|antd\.css/,  // atnd.css 不支持css modules
                 // 使用css分离插件
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: ["css-loader?modules", "postcss-loader"]
-                  })
-            }
+                        fallback: "style-loader",
+                        use: ["css-loader?modules", "postcss-loader"]
+                     })
+            },
+            {
+                test: /\.css$/,
+                include: /node_modules|antd\.css/,               
+                loader: "style-loader!css-loader"
+            },
         ]
     },
     

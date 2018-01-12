@@ -15,14 +15,6 @@ module.exports = {
 
     // devtool选项可以生成方便调试的对应代码，开发阶段可以打开，发布阶段建议取消
     devtool: "eval-source-map", // source-map, cheap-module-source-map, eval-source-map, cheap-module-eval-source-map 4选1    
-    
-    // devServer 配置了webpack-dev-server的配置
-    devServer: {
-        contentBase: "./build",     // 内容文件夹
-        historyApiFallback: true,   // h5 history的新API，不让页面跳转
-        inline: true,               // 实时刷新
-        port: 8080,                 // 端口，默认8080
-    },
 
     // Loaders webpack处理不同的文件，可以设置调用不同的脚本或者工具去处理
     module: {
@@ -46,7 +38,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-
+                exclude: /node_modules|antd\.css/,
                 // 同一个文件规则，使用多个loader
                 // use: [
                 //     {
@@ -71,15 +63,14 @@ module.exports = {
                 // })
             },
             {
-                test: /\.(png|gif|jpg|jpeg|bmp)$/,
-                loader: "url-loader?limit=5000"
+                test: /\.css$/,
+                include: /node_modules|antd\.css/,               
+                loader: "style-loader!css-loader"
             },
-            {
-                test: /\.(png|woff|woff2|svg|ttf|eot)($|\?)/,
-                loader: "file-loader"
-            }
         ]
     },
+
+    // 插件
     plugins: [
         // 清除文件的插件，第一个参数为要清楚的文件，第二参数是选项
         // new CleanWebpackPlugin(["build/*.css", "build/*.js"], {
@@ -95,4 +86,12 @@ module.exports = {
         new webpack.optimize.OccurrenceOrderPlugin(),   // 自动分配ID插件
         //new ExtractTextPlugin("styles-[hash].css"),   // 分离css和js文件的插件
     ],
+
+    // devServer 配置了webpack-dev-server的配置
+    devServer: {
+        contentBase: "./build",     // 内容文件夹
+        historyApiFallback: true,   // h5 history的新API，不让页面跳转
+        inline: true,               // 实时刷新
+        port: 8080,                 // 端口，默认8080
+    },
 };
